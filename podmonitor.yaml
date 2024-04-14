@@ -1,0 +1,28 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: custom-uplift-monitor
+  namespace: uplift-metrics
+  labels:
+    monitor: uplift-pod
+  annotations:
+    description: "PodMonitor for monitoring the uplift prediction service managed by Seldon"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: uplift-service
+      app.kubernetes.io/part-of: uplift-pipeline
+  podMetricsEndpoints:
+    - port: metrics-port
+      path: /metrics
+      interval: 30s
+      scheme: http
+      honorLabels: true
+      scrapeTimeout: 10s
+      metricRelabelings:
+        - sourceLabels: [__name__]
+          regex: 'process.*'
+          action: keep
+  namespaceSelector:
+    matchNames:
+      - uplift-metrics

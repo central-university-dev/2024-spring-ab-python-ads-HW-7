@@ -1,0 +1,12 @@
+dataSources:
+  mainDataSourceConfig.yaml:
+    apiVersion: 1
+    listDataSources:
+      - title: PrimaryPrometheusDataSource
+        dataSourceType: prometheus
+        endpoint: http://prometheus-service.seldon-monitoring.svc.cluster.local:9090
+        defaultSource: true
+        accessSettings:
+          method: direct
+        jsonData:
+          timeInterval: "5s"
