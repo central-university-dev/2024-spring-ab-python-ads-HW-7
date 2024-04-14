@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: seldon-model-monitor
+  labels:
+    team: ml
+spec:
+  selector:
+    matchLabels:
+      app: seldon
+  podMetricsEndpoints:
+    - path: /prometheus
+      port: metrics
+      interval: 15s
