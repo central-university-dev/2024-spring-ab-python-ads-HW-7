@@ -1,0 +1,13 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: uplift-model
+spec:
+  name: uplift-prediction
+  predictors:
+    - graph:
+        children: []
+        implementation: ML_SERVER
+        name: classifier
+      name: default
+      replicas: 1
