@@ -1,0 +1,21 @@
+apiVersion: machinelearning.seldon.io/v1alpha2
+kind: SeldonDeployment
+metadata:
+  name: uplift-predictor
+spec:
+  predictors:
+    - name: uplift-predictor
+      replicas: 1
+      graph:
+        name: uplift-predictor
+        type: MODEL
+        implementation: MLSERVER_SKLEARN
+        modelUri: s3://my-bucket/uplift-model
+        envSecretRefName: seldon-init-container-secret
+      componentSpecs:
+        - spec:
+            containers:
+              - name: uplift-predictor
+                image: dkopylov/hw7
+                imagePullPolicy: Always
+
