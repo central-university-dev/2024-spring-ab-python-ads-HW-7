@@ -1,0 +1,16 @@
+apiVersion: machinelearning.seldon.io/v1alpha2
+kind: SeldonDeployment
+metadata:
+  name: uplift-model
+spec:
+  predictors:
+    - componentSpecs:
+        - spec:
+            containers:
+              - image: mirckos/uplift-model
+                name: uplift-model
+                imagePullPolicy: Always
+      graph:
+        name: uplift-model
+        type: MODEL
+      name: uplift-model

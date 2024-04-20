@@ -1,0 +1,7 @@
+{
+  "name": "uplift-model",
+  "implementation": "inference.UpliftModel",
+  "parameters": {
+    "uri": "./uplift_model.pkl"
+  }
+}
