@@ -1,32 +1,20 @@
-# 2024-spring-ab-python-ads-HW-7
+## Обзор проекта
+Этот проект включает в себя развертывание Seldon Core, Prometheus и Grafana на кластере Kind для реализации и мониторинга ML-приложения на основе uplift-модели. Приложение предоставляет endpoint `/predict`, который возвращает предсказание uplift для клиентов. В Grafana реализован дэшборд, отображающий количество успешных запросов во времени.
 
-На Kind-кластере развернуть `SeldonCore` + `Prometheus` + `Grafana`. Реализовать с помощью `MLServer` и `SeldonDeployment` приложение на основе uplift-модели с endpoint'ом ```/predict```, который по фичам клиента возвращает предсказание uplift (вероятность покупки с промо - вероятность покупки без промо). Построить в `Grafana` дэшборд, показывающий количество успешных реквестов во времени.
+## Необходимо
+- Docker и Kind установлены
+- Helm установлен для управления Kubernetes пакетами
+- Python версии 3.8 или выше
+- MLServer установлен для обслуживания моделей
 
-Все необходимые шаги описать в `Makefile` вида:
-```yaml
-train:
-    python train.py
+## Инструкции по установке и запуску
 
-build:
-    mlserver build . -t [YOUR_CONTAINER_REGISTRY]/[IMAGE_NAME]
+### Обучение модели и развёртывание 
+```bash
+make all
 
-kind-cluster:
-    kind create cluster --name seldon-cluster --config kind-cluster.yaml --image=kindest/node:v1.21.1
-
-ambassador:
-    ###
-
-seldon-core:
-    ###
-
-...
-```
-
-Все необходимые `yaml`-файлы (например, `SeldonDeployment` и `Podmonitor` для `Prometheus`), а также скрин дэшборда в `Graphana` также должны быть в репозитории. 
-
-**Критерии**
-1. Подготовлены модули для обучения, инференса и выполения тестовых реквестов - +2
-2. В `Makefile` есть все необходимые шаги для сборки образа в `MLServer` - +2
-3. В `Makefile` есть все необходимые шаги для деплоя необходимых компонентов (включая `port forwarding`) - +4
-4. В `Makefile` есть шаг для тестовых реквестов - +1
-5. Прикреплен скрин дэшборда в `Grafana` - +1
+## Конфигурационные файлы
+- kind-cluster.yaml: Конфигурация для создания кластера Kind.
+- seldon-deployment.yaml: Конфигурация для развертывания ML модели с использованием Seldon Core.
+- values_grafana_local.yaml: Настройки для Grafana, включая настройку Prometheus как источника данных.
+ 
